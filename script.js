@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (letter.length === currentText.length) {
             count++;
             index = 0;
-            setTimeout(type, 2000); // Wait 2 seconds before deleting/next
+            setTimeout(type, 2000); 
         } else {
-            setTimeout(type, 100); // Typing speed
+            setTimeout(type, 100); 
         }
     })();
 
-    // --- Smooth Scroll & Active Link Highlighting ---
+    // --- Active Link Highlighting ---
     const sections = document.querySelectorAll("section");
     const navLi = document.querySelectorAll(".nav-links li a");
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var current = "";
         sections.forEach((section) => {
             const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 60) {
+            if (pageYOffset >= sectionTop - 200) {
                 current = section.getAttribute("id");
             }
         });
@@ -46,5 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
-});
 
+    // --- NEW: Scroll Reveal Animation ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden');
+    hiddenElements.forEach((el) => observer.observe(el));
+});
